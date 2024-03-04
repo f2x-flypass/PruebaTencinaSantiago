@@ -1,4 +1,4 @@
-package com.test.santiago.financial.entity.infractructure.postgres.Customer;
+package com.test.santiago.financial.entity.infractructure.postgres.customer;
 
 import com.test.santiago.financial.entity.dto.CustomerDto;
 import jakarta.persistence.Column;

@@ -1,4 +1,4 @@
-package com.test.santiago.financial.entity.infractructure.postgres.Customer;
+package com.test.santiago.financial.entity.infractructure.postgres.customer;
 
 import org.springframework.data.repository.CrudRepository;
 

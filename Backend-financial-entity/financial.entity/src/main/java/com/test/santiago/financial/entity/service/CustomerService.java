@@ -2,8 +2,10 @@ package com.test.santiago.financial.entity.service;
 
 
 import com.test.santiago.financial.entity.dto.CustomerDto;
-import com.test.santiago.financial.entity.infractructure.postgres.Customer.Customer;
-import com.test.santiago.financial.entity.infractructure.postgres.Customer.CustomerRepository;
+import com.test.santiago.financial.entity.infractructure.postgres.customer.Customer;
+import com.test.santiago.financial.entity.infractructure.postgres.customer.CustomerRepository;
+import com.test.santiago.financial.entity.utils.Utils;
+import com.test.santiago.financial.entity.utils.ValidationException;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -17,7 +19,12 @@ public class CustomerService {
         this.customerRepository = customerRepository;
     }
 
-    public CustomerDto saveCustomer(CustomerDto customerDto){
+    public CustomerDto saveCustomer(CustomerDto customerDto) throws ValidationException {
+
+        if(Utils.getAge(customerDto.getBirthDate()) < 18){
+            throw new ValidationException("001", "No puedes ser menor de edad");
+        }
+
         Customer customer = Customer.builder()
                 .identificationNumber(customerDto.getIdentificationNumber())
                 .identificationType(customerDto.getIdentificationType())
