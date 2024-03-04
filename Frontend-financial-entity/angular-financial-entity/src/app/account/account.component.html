@@ -1,0 +1,50 @@
+<p>account works!</p>
+<div *ngIf="accounts.length > 0">
+  <div *ngFor="let account of accounts">
+    <h1>{{account.id}}</h1>
+    <h1>{{account.accountsNumber}}</h1>
+    <h1>{{account.state}}</h1>
+    <h1>{{account.accountType}}</h1>
+    <h1>{{account.balance}}</h1>
+    <div *ngIf="account.gmf">
+      <h1 style="color: skyblue">{{account.gmf}}</h1>
+    </div>
+    <div *ngIf="!account.gmf">
+      <h1 style="color: darkblue">{{account.gmf}}</h1>
+    </div>
+  </div>
+</div>
+
+
+
+<div>
+  <form [formGroup]="accountForm" (ngSubmit)="save(accountForm.value)">
+    <div>
+      <label for="accountType">
+        tipo de cuenta
+      </label>
+      <input id="accountType" type="text" formControlName="accountType">
+    </div>
+    <div>
+      <label for="state">
+        estado
+      </label>
+      <input id="state" type="text" formControlName="state">
+    </div>
+
+    <div>
+      <label for="balance">
+        Saldo
+      </label>
+      <input id="balance" type="text" formControlName="balance">
+    </div>
+
+    <div>
+      <label for="gmf">
+        Extento de GMF
+      </label>
+      <input id="gmf" type="text" formControlName="gmf">
+    </div>
+    <button class="button" type="submit">Guardar Cuenta</button>
+  </form>
+</div>

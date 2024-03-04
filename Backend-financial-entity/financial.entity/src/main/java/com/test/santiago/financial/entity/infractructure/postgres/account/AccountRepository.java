@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface AccountRepository extends CrudRepository<Account, Long> {
 
-    Account findAccountByAccountsNumber(Integer accountNumber);
+    Account findAccountByAccountNumber(Integer accountNumber);
     List<Account> findALLByCustomerIdOrderByStateAsc(Integer customerID);
 }

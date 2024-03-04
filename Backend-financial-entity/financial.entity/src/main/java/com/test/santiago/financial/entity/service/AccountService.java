@@ -9,6 +9,7 @@ import com.test.santiago.financial.entity.infractructure.postgres.account.Accoun
 import com.test.santiago.financial.entity.utils.Utils;
 import com.test.santiago.financial.entity.utils.ValidationException;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.Date;
 import java.util.List;
@@ -29,9 +30,10 @@ public class AccountService {
             }
 
             Account customer = Account.builder()
-                    .accountsNumber(getUniqueAccountNumber(accountDto))
+                    .accountNumber(getUniqueAccountNumber(accountDto))
                     .accountType(accountDto.getAccountType())
-                    .state((accountDto.getAccountType() == EnumAccountType.SAVINGS.getId() ? EnumStatusAccount.ACTIVE  :  EnumStatusAccount.findById(accountDto.getState().getId())))
+                    //.state((accountDto.getAccountType() == EnumAccountType.SAVINGS.getId() ? EnumStatusAccount.ACTIVE  :  EnumStatusAccount.findById(accountDto.getState())))
+                    .state( EnumStatusAccount.ACTIVE.getId())
                     .balance(accountDto.getBalance())
                     .gmf(accountDto.getGmf())
                     .creationDate(new Date())
@@ -43,15 +45,22 @@ public class AccountService {
     }
 
     private static Integer getUniqueAccountNumber(AccountDto accountDto) {
-        Integer randomNumber = Utils.getEightDigitsNumber();
-        Integer accountNumber = (accountDto.getAccountType() == EnumAccountType.SAVINGS.getId() ? EnumAccountType.SAVINGS.getInitialNumber() + randomNumber  :  EnumAccountType.CURRENT.getInitialNumber() + randomNumber);
+        try {
+            Integer randomNumber = Utils.getEightDigitsNumber();
 
-        Account account = accountRepository.findAccountByAccountsNumber(accountNumber);
+            String accountNumberString = (accountDto.getAccountType() == EnumAccountType.SAVINGS.getId() ? EnumAccountType.SAVINGS.getInitialNumber().toString() + randomNumber : EnumAccountType.CURRENT.getInitialNumber().toString() + randomNumber);
+            Integer accountNumber = Integer.parseInt(accountNumberString);
 
-        if(Objects.isNull(account)){
-            return accountNumber;
-        } else {
-            return getUniqueAccountNumber(accountDto);
+
+            Account account = accountRepository.findAccountByAccountNumber(accountNumber);
+
+            if (Objects.isNull(account)) {
+                return accountNumber;
+            } else {
+                return getUniqueAccountNumber(accountDto);
+            }
+        }catch (Exception e){
+            return Utils.getEightDigitsNumber();
         }
     }
 

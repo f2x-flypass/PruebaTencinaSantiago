@@ -35,7 +35,7 @@ public class AccountController {
             return new ResponseEntity<>(ResponseErrorDto.builder().code(e.getCode()).errorMessage(e.getMsg()).build(), HttpStatus.CONFLICT);
         }
     }
-    @GetMapping(value = "getAll")
+    @GetMapping(value = "getAll/{customerId}")
     public ResponseEntity<List<AccountDto>> getAll(@PathVariable Integer customerId){
        try{
             return new ResponseEntity<>(accountService.getAll(customerId), HttpStatus.OK);

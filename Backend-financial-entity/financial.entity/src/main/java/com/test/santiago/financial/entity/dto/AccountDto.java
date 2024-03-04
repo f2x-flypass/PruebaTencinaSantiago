@@ -10,7 +10,7 @@ public class AccountDto {
     private Long id;
     private Long accountType;
     private Integer accountsNumber;
-    private EnumDto state;
+    private Long state;
     private Integer balance;
     private Boolean gmf;
     private Date creationDate;

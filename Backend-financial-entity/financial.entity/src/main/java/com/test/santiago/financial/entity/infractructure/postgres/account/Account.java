@@ -1,7 +1,6 @@
 package com.test.santiago.financial.entity.infractructure.postgres.account;
 
 import com.test.santiago.financial.entity.dto.AccountDto;
-import com.test.santiago.financial.entity.dto.CustomerDto;
 import com.test.santiago.financial.entity.dto.EnumDto;
 import com.test.santiago.financial.entity.enums.EnumStatusAccount;
 import com.test.santiago.financial.entity.infractructure.postgres.customer.Customer;
@@ -46,12 +45,12 @@ public class Account {
     @Column(name="account_type")
     private Long accountType;
 
-    @Column(name="accounts_number")
-    private Integer accountsNumber;
+    @Column(name="account_number")
+    private Integer accountNumber;
 
-    @Enumerated
+    //@Enumerated
     @Column(name="state")
-    private EnumStatusAccount state;
+    private Long state;
 
     @Column(name="balance")
     private Integer balance;
@@ -66,8 +65,9 @@ public class Account {
         return AccountDto.builder()
                 .id(this.id)
                 .accountType(this.accountType)
-                .accountsNumber(this.accountsNumber)
-                .state(EnumDto.builder().id(this.state.getId()).name(this.state.getName()).build())
+                .accountsNumber(this.accountNumber)
+                //.state(EnumDto.builder().id(this.state.getId()).name(this.state.getName()).build())
+                .state(this.state)
                 .balance(this.balance)
                 .gmf(this.gmf)
                 .creationDate(this.creationDate)

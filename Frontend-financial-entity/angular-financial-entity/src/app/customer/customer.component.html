@@ -1,57 +1,65 @@
 <p>customer works!</p>
-<h2>{{title}}</h2>
-<button (click)="getAllCustomer()">Mostrar todos los clientes</button>
+<div *ngIf="option === '0'">
+  <div>
+    <form [formGroup]="checkoutForm" (ngSubmit)="save(checkoutForm.value)">
+      <div>
+        <label for="name">
+          Nombre
+        </label>
+        <input id="name" type="text" formControlName="name">
+      </div>
+      <div>
+        <label for="lastname">
+          Apellido
+        </label>
+        <input id="lastname" type="text" formControlName="lastname">
+      </div>
 
-<pre>{{customers | json}}</pre>
-
-<div *ngIf="customers.length > 0">
-  <div *ngFor="let customer of customers">
-    <h1>{{customer.name}}</h1>
+      <div>
+        <label for="identificationType">
+          Tipo de identificacion
+        </label>
+        <input id="identificationType" type="text" formControlName="identificationType">
+      </div>
+      <div>
+        <label for="identificationNumber">
+          Numero de Identificacion
+        </label>
+        <input id="identificationNumber" type="text" formControlName="identificationNumber">
+      </div>
+      <div>
+        <label for="birthDate">
+          Fecha de Cumpleaños
+        </label>
+        <input id="birthDate" type="text" formControlName="birthDate">
+      </div>
+      <div>
+        <label for="mail">
+          Correo
+        </label>
+        <input id="mail" type="text" formControlName="mail">
+      </div>
+      <button class="button" type="submit">Guardar Cliente</button>
+      <pre>{{customer | json}}</pre>
+    </form>
   </div>
 </div>
 
-<div>
-  <form [formGroup]="checkoutForm" (ngSubmit)="save(checkoutForm.value)">
-    <div>
-      <label for="name">
-        Nombre
-      </label>
-      <input id="name" type="text" formControlName="name">
-    </div>
-    <div>
-      <label for="lastname">
-        Apellido
-      </label>
-      <input id="lastname" type="text" formControlName="lastname">
-    </div>
+<div *ngIf="option === '1'">
+  <button (click)="getAllCustomer()">Mostrar todos los clientes</button>
 
-    <div>
-      <label for="identificationType">
-        Tipo de identificacion
-      </label>
-      <input id="identificationType" type="text" formControlName="identificationType">
-    </div>
-    <div>
-      <label for="identificationNumber">
-        Numero de Identificacion
-      </label>
-      <input id="identificationNumber" type="text" formControlName="identificationNumber">
-    </div>
-    <div>
-      <label for="birthDate">
-        Fecha de Cumpleaños
-      </label>
-      <input id="birthDate" type="text" formControlName="birthDate">
-    </div>
-    <div>
-      <label for="mail">
-        Correo
-      </label>
-      <input id="mail" type="text" formControlName="mail">
-    </div>
+  <div *ngIf="customers.length > 0">
+    <div *ngFor="let customer of customers">
+      <h1>{{customer.id}}</h1>
+      <h1>{{customer.identificationNumber}}</h1>
+      <h1>{{customer.identificationType}}</h1>
+      <h1>{{customer.name}}</h1>
+      <h1>{{customer.lastname}}</h1>
+      <h1>{{customer.mail}}</h1>
+      <h1>{{customer.birthDate}}</h1>
 
+      <button  [routerLink]="['/account', customer.id]">Mostrar cuentas</button>
 
-    <button class="button" type="submit">Guardar Cliente</button>
-    <pre>{{customer | json}}</pre>
-  </form>
+    </div>
+  </div>
 </div>
